@@ -5,8 +5,8 @@
 @section('content')
 <h1>En esta pagina podras crear un curso</h1>
 <form action="{{route('cursos.store')}}" method="POST">
-    @csrf
-
+    
+    @csrf {{-- Crea un token para poder enviar esta informacion a la base de datos, es una directiva de blade --}}
     <label>
         Nombre:
         <br>

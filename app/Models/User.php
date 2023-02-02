@@ -47,11 +47,11 @@ class User extends Authenticatable
     protected function name(): Attribute{
         return new Attribute(
 
-            get: fn($value) => ucwords($value), /*funcion flecha */
+            get: fn($value) => ucwords($value), /*funcion flecha */     //Accesor
 
-            set: function($value){
-                return strtolower($value);
-            }
+            set: function($value){                  //Mutador
+                return strtolower($value);          // Mutador
+            }                                       // Mutador
         );
     }
 }

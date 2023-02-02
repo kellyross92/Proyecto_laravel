@@ -19,30 +19,33 @@ class CursoController extends Controller
 
     public function store(Request $request){
 
-        $request->validate([
+        //return $request->all(); //permite ver lo que trae el parametro $request
+
+        $request->validate([                // Con esto validamos los campos que son obligatorios
             'name' => 'required',
             'descripcion' =>'required',
             'categoria' => 'required'
         ]);
 
-
+        // Rescatamos la informacion del formulario  y lo guardamos en la base de datos
         $curso = new Curso();
 
         $curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
         $curso->categoria = $request->categoria;
         $curso->save();
-        return redirect()->route('cursos.show', $curso->id);
+        return redirect()->route('cursos.show', $curso->id); // Nos redirecciona a una vista del curso creado, si no queda una pantalla en blanco
     }
     // Metodo encargado de mostrar todos los cursos
     public function show($id){
-        $curso =  Curso::find($id);
-        
+        $curso =  Curso::find($id);        
         // compact('curso') es lo mismo que ['curso'=> $curso]
         return view('cursos.show', compact('curso'));
     }
 
-    public function edit(Curso $curso){
+    // Las funciones Show and Edit  se traen el registro, formas diferentes
+    
+    public function edit(Curso $curso){  // (Curso $curso) esto esta instanciando la clase curso cuya id se envia por la URL
 
         return view('cursos.edit', compact('curso'));        
     }
