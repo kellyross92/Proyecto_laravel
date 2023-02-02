@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StoreCurso;
+
 class CursoController extends Controller
 {
     // Metodo encargado de mostrar la pagina principal
@@ -17,15 +19,9 @@ class CursoController extends Controller
         return view('cursos.create');
     }
 
-    public function store(Request $request){
+    public function store(StoreCurso $request){
 
         //return $request->all(); //permite ver lo que trae el parametro $request
-
-        $request->validate([                // Con esto validamos los campos que son obligatorios
-            'name' => 'required',
-            'descripcion' =>'required',
-            'categoria' => 'required'
-        ]);
 
         // Rescatamos la informacion del formulario  y lo guardamos en la base de datos
         $curso = new Curso();
@@ -44,13 +40,19 @@ class CursoController extends Controller
     }
 
     // Las funciones Show and Edit  se traen el registro, formas diferentes
-    
+
     public function edit(Curso $curso){  // (Curso $curso) esto esta instanciando la clase curso cuya id se envia por la URL
 
         return view('cursos.edit', compact('curso'));        
     }
 
     public function update(Request $request,Curso $curso){
+
+        $request->validate([                // Con esto validamos los campos que son obligatorios
+            'name' => 'required',
+            'descripcion' =>'required',
+            'categoria' => 'required'
+        ]);
         
         $curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
