@@ -68,4 +68,9 @@ class CursoController extends Controller
         $curso->delete();
         return redirect()->route('cursos.index');
     }
+
+    public function nosotros()
+    {
+        return view('nosotros');
+    }
 }

@@ -15,8 +15,9 @@ use App\Http\Controllers\CursoController;
 |
 */
 
-Route::get('/',HomeController::class);
+Route::get('/',HomeController::class)->name('home');
 Route::resource('cursos', CursoController::class);
+Route::view('nosotros', 'nosotros')->name('nosotros');
 //ejemplo de como cambiar la ruta y no las variables ni los name de como llamamos a las rutas
 /*Route::resource('asignaturas', CursoController::class)->parameters(['asignaturas' => 'curso'])->names('cursos'); */
 
