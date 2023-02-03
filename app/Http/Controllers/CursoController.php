@@ -16,6 +16,7 @@ class CursoController extends Controller
     }
     // Metodo encargado de crear un curso
     public function create(){
+        
         return view('cursos.create');
     }
 
@@ -23,18 +24,18 @@ class CursoController extends Controller
 
         //return $request->all(); //permite ver lo que trae el parametro $request
 
-        // Rescatamos la informacion del formulario  y lo guardamos en la base de datos
-        $curso = new Curso();
-
+        // Rescatamos la informacion del formulario  y lo guardamos en la base de datos.
+        $curso = Curso::create($request->all());
+       /* $curso = new Curso();
         $curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
         $curso->categoria = $request->categoria;
-        $curso->save();
+        $curso->save(); */
         return redirect()->route('cursos.show', $curso->id); // Nos redirecciona a una vista del curso creado, si no queda una pantalla en blanco
     }
     // Metodo encargado de mostrar todos los cursos
-    public function show($id){
-        $curso =  Curso::find($id);        
+    public function show(Curso $curso){
+        //$curso =  Curso::find($id);        
         // compact('curso') es lo mismo que ['curso'=> $curso]
         return view('cursos.show', compact('curso'));
     }
@@ -54,11 +55,17 @@ class CursoController extends Controller
             'categoria' => 'required'
         ]);
         
-        $curso->name = $request->name;
+        /*$curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
         $curso->categoria = $request->categoria;
-        $curso->save();
+        $curso->save();*/
+        $curso->update($request->all()); // Esto hace lo mismo que las lineas anteriores
 
         return view('cursos.show', compact('curso'));  
+    }
+
+    public function destroy (Curso $curso){
+        $curso->delete();
+        return redirect()->route('cursos.index');
     }
 }

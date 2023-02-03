@@ -16,30 +16,22 @@ use App\Http\Controllers\CursoController;
 */
 
 Route::get('/',HomeController::class);
+Route::resource('cursos', CursoController::class);
+//ejemplo de como cambiar la ruta y no las variables ni los name de como llamamos a las rutas
+/*Route::resource('asignaturas', CursoController::class)->parameters(['asignaturas' => 'curso'])->names('cursos'); */
 
 
-
-
-Route::controller(CursoController::class)->group(function(){
-              /* Paginas , metodos que las administran  */  
+/*Route::controller(CursoController::class)->group(function(){
+              // Paginas , metodos que las administran 
     Route::get('cursos', 'index')->name('cursos.index');
     Route::get('cursos/create', 'create')->name('cursos.create');
     Route::post('cursos', 'store')->name('cursos.store');
-    Route::get('cursos/{id}', 'show')->name('cursos.show');
+    Route::get('cursos/{curso}', 'show')->name('cursos.show');
     Route::get('cursos/{curso}/edit', 'edit')->name('cursos.edit');
     Route::put('cursos/{curso}','update')->name('cursos.update');
+    Route::delete('cursos/{curso}','destroy')->name('cursos.destroy');
 });
-
-
-// Otra Forma de hacerlo
-/* Route::group(function(){
-    Route::get('cursos', [CursoController::class, 'index']);
-    Route::get('cursos/create', [CursoController::class, 'create']);
-    Route::get('cursos/{curso}', [CursoController::class, 'show']);
-}); 
 */
-
-
 
 /*Route::get('cursos/{curso}/{categoria?}', function ($curso, $categoria=null) {
     if($categoria){
