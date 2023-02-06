@@ -13,16 +13,17 @@ class ContactanosMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subjet = "Informacion de contacto";
+    public $subject = "Informacion de contacto";
+    public $contacto;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( $contacto)
     {
-        //
+        $this->contacto = $contacto;
     }
 
     /**
@@ -33,7 +34,7 @@ class ContactanosMailable extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Contactanos Mailable',
+           
         );
     }
 
@@ -45,7 +46,7 @@ class ContactanosMailable extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.contactanos',
         );
     }
 
@@ -56,6 +57,6 @@ class ContactanosMailable extends Mailable
      */
     public function attachments()
     {
-        return [];
+        return [    ];
     }
 }
